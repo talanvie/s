@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rồng Vàng — Poker online hàng đầu Việt Nam</title>
+<meta name="description" content="Câu lạc bộ poker online tại Việt Nam. Bàn soft 24/7, rút tiền tức thì, đầy đủ format và mức cược, rakeback đến 60%.">
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4535252846795786');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4535252846795786&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #5C0A14;
+    --bg-deeper: #3D0710;
+    --bg-darkest: #240509;
+    --gold: #C9A961;
+    --gold-bright: #E8C470;
+    --gold-deep: #8B7340;
+    --ivory: #F2E6CC;
+    --ivory-dim: rgba(242, 230, 204, 0.62);
+    --ivory-faint: rgba(242, 230, 204, 0.28);
+    --black: #0F0908;
+    --rule: rgba(201, 169, 97, 0.22);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ivory);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Atmospheric layers */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201, 169, 97, 0.10), transparent 60%),
+      radial-gradient(ellipse 100% 80% at 50% 100%, rgba(15, 9, 8, 0.6), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Subtle grain */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.79 0 0 0 0 0.66 0 0 0 0 0.38 0 0 0 0.5 0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.4'/></svg>");
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Corner brackets */
+  .corner {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.6;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner.tl { top: 18px; left: 18px; }
+  .corner.tr { top: 18px; right: 18px; transform: scaleX(-1); }
+  .corner.bl { bottom: 18px; left: 18px; transform: scaleY(-1); }
+  .corner.br { bottom: 18px; right: 18px; transform: scale(-1, -1); }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(20px, 3.5vw, 40px);
+    gap: clamp(20px, 3vw, 32px);
+  }
+
+  /* TOP */
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: clamp(14px, 1.8vw, 22px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .wordmark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.32em;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .wordmark-glyph {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+  .meta {
+    font-size: 10.5px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ivory-dim);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .meta-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0.8;
+  }
+
+  /* MAIN */
+  .main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+    padding: clamp(10px, 2.5vw, 30px) 0;
+  }
+
+  .content {
+    max-width: 720px;
+    min-width: 0;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: clamp(20px, 2.5vw, 30px);
+    font-weight: 500;
+  }
+  .eyebrow-line {
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(52px, 7.5vw, 116px);
+    line-height: 0.93;
+    letter-spacing: -0.025em;
+    margin-bottom: clamp(32px, 3.8vw, 52px);
+    color: var(--ivory);
+  }
+  h1 .accent {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+    margin-top: 0.05em;
+  }
+
+  /* ADVANTAGES GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    margin-bottom: clamp(32px, 4vw, 48px);
+    max-width: 600px;
+  }
+  .grid-item {
+    padding: clamp(18px, 2.2vw, 26px) clamp(20px, 2.5vw, 30px);
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+  }
+  .grid-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    opacity: 0.85;
+  }
+  .grid-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(15px, 1.15vw, 17px);
+    font-weight: 600;
+    color: var(--ivory);
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+  }
+  .grid-desc {
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--ivory-dim);
+    font-weight: 400;
+  }
+
+  /* CTA */
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 36px;
+    background: var(--gold);
+    color: var(--bg-darkest);
+    text-decoration: none;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border: 1px solid var(--gold-bright);
+    cursor: pointer;
+  }
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--gold), var(--gold-bright) 50%, var(--gold));
+    transform: translateX(-101%);
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .cta:hover::before { transform: translateX(0); }
+  .cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px -10px rgba(232, 196, 112, 0.5);
+  }
+  .cta > * { position: relative; z-index: 1; }
+  .cta-arrow {
+    width: 22px;
+    height: 13px;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .cta:hover .cta-arrow { transform: translateX(6px); }
+  .cta:focus-visible {
+    outline: 2px solid var(--ivory);
+    outline-offset: 4px;
+  }
+  .cta-hint {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ivory-dim);
+  }
+
+  /* VISUAL — quieter, atmospheric */
+  .visual {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    justify-self: end;
+    aspect-ratio: 3 / 4.1;
+    opacity: 0.78;
+    pointer-events: none;
+  }
+  .visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
+  }
+
+  /* BOTTOM */
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: clamp(14px, 1.8vw, 22px);
+    border-top: 1px solid var(--rule);
+    font-size: 10.5px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ivory-dim);
+  }
+  .bottom-list {
+    display: flex;
+    gap: clamp(16px, 2.5vw, 32px);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 0.78; } }
+  @keyframes fadeInTopBar { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes drift {
+    0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+    50% { transform: translateY(-6px) rotate(-1deg); }
+  }
+
+  .content > * { animation: fadeUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; }
+  .content > *:nth-child(1) { animation-delay: 0.15s; }
+  .content > *:nth-child(2) { animation-delay: 0.28s; }
+  .content > *:nth-child(3) { animation-delay: 0.42s; }
+  .content > *:nth-child(4) { animation-delay: 0.56s; }
+
+  .visual { animation: fadeIn 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s backwards; }
+  .visual > svg {
+    animation: drift 9s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  .top, .bottom { animation: fadeInTopBar 1s ease 0.7s backwards; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1000px) {
+    .main {
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 0.85fr);
+      gap: 32px;
+    }
+    .visual { max-width: 260px; opacity: 0.7; }
+  }
+
+  @media (max-width: 760px) {
+    .main {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding: 20px 0;
+    }
+    .visual {
+      max-width: 130px;
+      justify-self: start;
+      opacity: 0.55;
+      order: -1;
+      margin-bottom: 4px;
+    }
+    .visual > svg { animation-duration: 11s; }
+    .content { max-width: 100%; }
+    .grid { max-width: 100%; }
+  }
+
+  @media (max-width: 600px) {
+    .page {
+      padding: 16px;
+      gap: 16px;
+    }
+    .corner { width: 22px; height: 22px; }
+    .corner.tl, .corner.bl { left: 10px; }
+    .corner.tr, .corner.br { right: 10px; }
+    .corner.tl, .corner.tr { top: 10px; }
+    .corner.bl, .corner.br { bottom: 10px; }
+
+    .top, .bottom {
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+    }
+    .meta { gap: 10px; font-size: 9.5px; letter-spacing: 0.28em; }
+    .bottom-list { font-size: 9.5px; letter-spacing: 0.28em; gap: 14px; }
+
+    h1 { font-size: clamp(42px, 12vw, 64px); }
+
+    .grid { grid-template-columns: 1fr; }
+    .grid-title { font-size: 15px; }
+    .grid-desc { font-size: 12px; }
+
+    .visual { max-width: 110px; }
+
+    .cta-row { width: 100%; }
+    .cta {
+      width: 100%;
+      justify-content: center;
+      padding: 18px 24px;
+      font-size: 12.5px;
+      letter-spacing: 0.18em;
+      gap: 14px;
+    }
+    .cta-hint { display: none; }
+  }
+
+  @media (max-width: 380px) {
+    h1 { font-size: 40px; }
+    .wordmark { font-size: 11.5px; letter-spacing: 0.26em; gap: 9px; }
+    .wordmark-glyph { width: 18px; height: 18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Corner brackets -->
+<div class="corner tl" aria-hidden="true">
+  <svg viewBox="0 0 40 40" fill="none" stroke="#C9A961" stroke-width="1">
+    <path d="M0,18 L0,0 L18,0"/>
+    <path d="M4,10 Q10,4 16,4" opacity="0.6"/>
+    <circle cx="4" cy="4" r="1.2" fill="#C9A961" stroke="none"/>
+  </svg>
+</div>
+<div class="corner tr" aria-hidden="true">
+  <svg viewBox="0 0 40 40" fill="none" stroke="#C9A961" stroke-width="1">
+    <path d="M0,18 L0,0 L18,0"/>
+    <path d="M4,10 Q10,4 16,4" opacity="0.6"/>
+    <circle cx="4" cy="4" r="1.2" fill="#C9A961" stroke="none"/>
+  </svg>
+</div>
+<div class="corner bl" aria-hidden="true">
+  <svg viewBox="0 0 40 40" fill="none" stroke="#C9A961" stroke-width="1">
+    <path d="M0,18 L0,0 L18,0"/>
+    <path d="M4,10 Q10,4 16,4" opacity="0.6"/>
+    <circle cx="4" cy="4" r="1.2" fill="#C9A961" stroke="none"/>
+  </svg>
+</div>
+<div class="corner br" aria-hidden="true">
+  <svg viewBox="0 0 40 40" fill="none" stroke="#C9A961" stroke-width="1">
+    <path d="M0,18 L0,0 L18,0"/>
+    <path d="M4,10 Q10,4 16,4" opacity="0.6"/>
+    <circle cx="4" cy="4" r="1.2" fill="#C9A961" stroke="none"/>
+  </svg>
+</div>
+
+<div class="page">
+
+  <!-- TOP -->
+  <header class="top">
+    <div class="wordmark">
+      <svg class="wordmark-glyph" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2 L20 9 L17 21 L7 21 L4 9 Z" stroke="#C9A961" stroke-width="1"/>
+        <circle cx="12" cy="12" r="3" fill="#C9A961"/>
+      </svg>
+      <span>Rồng&nbsp;Vàng</span>
+    </div>
+    <div class="meta">
+      <span>Online</span>
+      <span class="meta-dot"></span>
+      <span>Sài&nbsp;Gòn</span>
+      <span class="meta-dot"></span>
+      <span>24 / 7</span>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="content">
+
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        <span>Poker online · Việt&nbsp;Nam</span>
+      </div>
+
+      <h1>
+        Poker hàng đầu
+        <span class="accent">Việt&nbsp;Nam</span>
+      </h1>
+
+      <div class="grid">
+        <div class="grid-item">
+          <span class="grid-num">— 01</span>
+          <span class="grid-title">Bàn soft 24/7</span>
+          <span class="grid-desc">Đối thủ yếu, ván có lợi vào mọi thời điểm trong&nbsp;ngày.</span>
+        </div>
+        <div class="grid-item">
+          <span class="grid-num">— 02</span>
+          <span class="grid-title">Rút tiền tức thì</span>
+          <span class="grid-desc">Không trì hoãn, không phí ẩn — USDT và&nbsp;ngân hàng.</span>
+        </div>
+        <div class="grid-item">
+          <span class="grid-num">— 03</span>
+          <span class="grid-title">NL · PLO · MTT</span>
+          <span class="grid-desc">Đầy đủ format và mức cược — từ micro đến&nbsp;hi-stakes.</span>
+        </div>
+        <div class="grid-item">
+          <span class="grid-num">— 04</span>
+          <span class="grid-title">Rakeback đến 60%</span>
+          <span class="grid-desc">Hoàn rake mỗi ván và bàn private ngay khi&nbsp;gia&nbsp;nhập.</span>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a href="https://t.me/m/0xU5R3EcOTY1"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="cta"
+           onclick="try{fbq('track','Contact');}catch(e){}">
+          <span>Vào Telegram</span>
+          <svg class="cta-arrow" viewBox="0 0 24 14" fill="none" aria-hidden="true">
+            <path d="M0 7 H22 M16 1 L22 7 L16 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/>
+          </svg>
+        </a>
+        <span class="cta-hint">Truy cập trong 1 phút</span>
+      </div>
+
+    </div>
+
+    <!-- VISUAL: ornate playing card emblem -->
+    <div class="visual" aria-hidden="true">
+      <svg viewBox="0 0 360 480" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E8C470"/>
+            <stop offset="55%" stop-color="#C9A961"/>
+            <stop offset="100%" stop-color="#8B7340"/>
+          </linearGradient>
+          <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4A0810"/>
+            <stop offset="50%" stop-color="#3D0710"/>
+            <stop offset="100%" stop-color="#2A050B"/>
+          </linearGradient>
+          <radialGradient id="haloGrad" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#C9A961" stop-opacity="0.18"/>
+            <stop offset="60%" stop-color="#C9A961" stop-opacity="0.04"/>
+            <stop offset="100%" stop-color="#C9A961" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <g transform="rotate(-1.8, 180, 240)">
+
+          <!-- Card body -->
+          <rect x="14" y="14" width="332" height="452" rx="16" fill="url(#cardBg)"/>
+          <rect x="14" y="14" width="332" height="452" rx="16" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+          <rect x="26" y="26" width="308" height="428" rx="9" fill="none" stroke="#C9A961" stroke-width="0.5" opacity="0.45"/>
+          <rect x="32" y="32" width="296" height="416" rx="6" fill="none" stroke="#C9A961" stroke-width="0.3" opacity="0.25"/>
+
+          <!-- Cloud-wave bands -->
+          <g transform="translate(180, 64)" stroke="#C9A961" fill="none" stroke-width="0.8" opacity="0.55">
+            <path d="M-120,0 q12,-9 24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0"/>
+          </g>
+          <g transform="translate(180, 70)" stroke="#C9A961" fill="none" stroke-width="0.4" opacity="0.3">
+            <path d="M-130,0 q12,-6 24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0"/>
+          </g>
+          <g transform="translate(180, 416)" stroke="#C9A961" fill="none" stroke-width="0.8" opacity="0.55">
+            <path d="M-120,0 q12,9 24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0"/>
+          </g>
+          <g transform="translate(180, 410)" stroke="#C9A961" fill="none" stroke-width="0.4" opacity="0.3">
+            <path d="M-130,0 q12,6 24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0 t24,0"/>
+          </g>
+
+          <!-- Corner A♠ top-left -->
+          <g transform="translate(54, 102)">
+            <text font-family="Cormorant Garamond, serif" font-size="40" font-weight="500" fill="url(#goldGrad)">A</text>
+            <g transform="translate(8, 18) scale(0.85)">
+              <path d="M0,-14 C-9,-2 -16,6 -8,12 C-4,14 -1,10 0,12 C1,10 4,14 8,12 C16,6 9,-2 0,-14 Z" fill="url(#goldGrad)"/>
+              <path d="M-4,12 L-6,19 L6,19 L4,12 Z" fill="url(#goldGrad)"/>
+            </g>
+          </g>
+          <!-- Corner A♠ bottom-right -->
+          <g transform="rotate(180, 180, 240) translate(54, 102)">
+            <text font-family="Cormorant Garamond, serif" font-size="40" font-weight="500" fill="url(#goldGrad)">A</text>
+            <g transform="translate(8, 18) scale(0.85)">
+              <path d="M0,-14 C-9,-2 -16,6 -8,12 C-4,14 -1,10 0,12 C1,10 4,14 8,12 C16,6 9,-2 0,-14 Z" fill="url(#goldGrad)"/>
+              <path d="M-4,12 L-6,19 L6,19 L4,12 Z" fill="url(#goldGrad)"/>
+            </g>
+          </g>
+
+          <!-- Central emblem -->
+          <g transform="translate(180, 240)">
+            <circle r="130" fill="url(#haloGrad)"/>
+            <circle r="118" fill="none" stroke="#C9A961" stroke-width="0.6" opacity="0.45"/>
+            <circle r="112" fill="none" stroke="#C9A961" stroke-width="0.3" opacity="0.3"/>
+
+            <!-- Sun rays -->
+            <g stroke="#C9A961" stroke-width="0.5" opacity="0.4">
+              <line x1="0" y1="-118" x2="0" y2="-128"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(15)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(30)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(45)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(60)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(75)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(90)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(105)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(120)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(135)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(150)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(165)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(180)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(195)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(210)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(225)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(240)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(255)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(270)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(285)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(300)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(315)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(330)"/>
+              <line x1="0" y1="-118" x2="0" y2="-128" transform="rotate(345)"/>
+            </g>
+
+            <!-- Large lotus petals -->
+            <g opacity="0.7">
+              <ellipse cx="0" cy="-96" rx="7" ry="18" fill="url(#goldGrad)"/>
+              <ellipse cx="0" cy="-96" rx="7" ry="18" fill="url(#goldGrad)" transform="rotate(45)"/>
+              <ellipse cx="0" cy="-96" rx="7" ry="18" fill="url(#goldGrad)" transform="rotate(90)"/>
+              <ellipse cx="0" cy="-96" rx="7" ry="18" fill="url(#goldGrad)" transform="rotate(135)"/>
+              <ellipse cx="0" cy="-96" rx="7" ry="18" fill="url(#goldGrad)" transform="rotate(180)"/>
+              <ellipse cx="0" cy="-96" rx="7" ry="18" fill="url(#goldGrad)" transform="rotate(225)"/>
+              <ellipse cx="0" cy="-96" rx="7" ry="18" fill="url(#goldGrad)" transform="rotate(270)"/>
+              <ellipse cx="0" cy="-96" rx="7" ry="18" fill="url(#goldGrad)" transform="rotate(315)"/>
+            </g>
+
+            <!-- Small inner petals -->
+            <g opacity="0.5">
+              <ellipse cx="0" cy="-80" rx="3.5" ry="10" fill="#C9A961" transform="rotate(22.5)"/>
+              <ellipse cx="0" cy="-80" rx="3.5" ry="10" fill="#C9A961" transform="rotate(67.5)"/>
+              <ellipse cx="0" cy="-80" rx="3.5" ry="10" fill="#C9A961" transform="rotate(112.5)"/>
+              <ellipse cx="0" cy="-80" rx="3.5" ry="10" fill="#C9A961" transform="rotate(157.5)"/>
+              <ellipse cx="0" cy="-80" rx="3.5" ry="10" fill="#C9A961" transform="rotate(202.5)"/>
+              <ellipse cx="0" cy="-80" rx="3.5" ry="10" fill="#C9A961" transform="rotate(247.5)"/>
+              <ellipse cx="0" cy="-80" rx="3.5" ry="10" fill="#C9A961" transform="rotate(292.5)"/>
+              <ellipse cx="0" cy="-80" rx="3.5" ry="10" fill="#C9A961" transform="rotate(337.5)"/>
+            </g>
+
+            <circle r="64" fill="none" stroke="#C9A961" stroke-width="0.7" opacity="0.55"/>
+            <circle r="58" fill="none" stroke="#C9A961" stroke-width="0.3" opacity="0.4"/>
+
+            <!-- Central spade -->
+            <g transform="translate(0, 4)">
+              <path d="M0,-50 C-26,-20 -46,4 -28,30 C-16,42 -8,28 -4,34 L0,38 L4,34 C8,28 16,42 28,30 C46,4 26,-20 0,-50 Z" fill="url(#goldGrad)"/>
+              <path d="M0,-44 C-22,-18 -38,2 -24,24 M0,-44 C22,-18 38,2 24,24" stroke="#8B7340" stroke-width="0.6" fill="none" opacity="0.7"/>
+              <path d="M-10,32 L-14,50 L14,50 L10,32 Z" fill="url(#goldGrad)"/>
+              <circle cx="0" cy="50" r="2.4" fill="#E8C470"/>
+            </g>
+
+            <!-- Ornamental dots -->
+            <g fill="#C9A961" opacity="0.7">
+              <circle cx="0" cy="-118" r="1.4"/>
+              <circle cx="83.4" cy="-83.4" r="1.4"/>
+              <circle cx="118" cy="0" r="1.4"/>
+              <circle cx="83.4" cy="83.4" r="1.4"/>
+              <circle cx="0" cy="118" r="1.4"/>
+              <circle cx="-83.4" cy="83.4" r="1.4"/>
+              <circle cx="-118" cy="0" r="1.4"/>
+              <circle cx="-83.4" cy="-83.4" r="1.4"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </main>
+
+  <!-- BOTTOM -->
+  <footer class="bottom">
+    <div>◆ Anno MMXXVI</div>
+    <div class="bottom-list">
+      <span>Cash · MTT</span>
+      <span>USDT · Ngân&nbsp;hàng</span>
+      <span>24 / 7</span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
